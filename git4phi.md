@@ -20,12 +20,35 @@ A third difference is that Git works locally until you tell it to save or load c
 
 To save the revisions in your Git repository over the internet, your Git repository must be linked with a version of the repository on a server somewhere (e.g., on GitHub or GitLab).  This server repository is called a 'remote'.  Think of it as the cloud copy of your local Dropbox folder.  However, the remote repository is not automatically synced with your local version.  You have to tell Git to copy the changes in your local repository to the remote.  This is called 'pushing' your changes. In the other directions, to incorporate changes to the remote copy into your local repository, you 'pull' changes from the remote.  It's in this case, when the remote repository has been changed (by you, from a different computer, or by a collaborator), that Git is most useful.  If a file is changed in your Dropbox folder at the same time you're editing it on your own computer, Dropbox will make a new copy of the entire file and leave you to figure out if there are conflicting changes and what to do about them.  If you pull changes from a remote Git repository, Git will try very hard to compare your local version with the remote version of each file.  If it is possible to merge changes automatically, Git will do so.  If not -- e.g., when both you and your collaborator have changed the same sentence -- Git will alert you to a conflict that has to be reconciled manually.  In practice, you will find a version of the file with both lines marked; you delete the line you want don't want to keep, save the file, and commit the change to creat a revision that reflects both your and your collaborator's change.
 
-For instance, the [Open Logic Text](https://github.com/OpenLogicProject/OpenLogic) and the [Homotopy Type Theory book](https://github.com/HoTT/HoTT) are two book-size projects that use Git.  The Carnap Edition project also does, but the repository is not public.  
+## How do I use Git?
 
+In order to use Git on your computer, you have to install the Git software.  The bare-bones "command line" Git client is available for all operating systems, but there are a fair number of graphical interfaces available as well. The best place to start is on the [Git download page](http://git-scm.com/downloads). For Windows, there is [TortoiseGit](https://code.google.com/p/tortoisegit/), which will make all the Git commands available via the Windows Explorer right-click menu.  If your repositories are or will be hosted on GtHub, you can use GitHub's own graphical tools for Windows and Mac.
 
-When you have created a repository on github (or gitlab), you can add existing files on your computer to it. In the directory you want to add to the repository:
+Once you have Git and posisble a graphical Git tool installed, you have to set up a repository.  There are two ways to do this.  The first is using the `git init` command: in the folder/directory you want to track usin Git, just say `git init`.  Most of the time, however, you want your repository to have a matching remote version on a server.  Then it will be a lot easier to first create the repository on the server and then create a local copy of that repository which will be linked to the remote.  Creating such a local version of an existing repository is called 'cloning.'
 
-    git add file-name-to-add
-    git commit -m "first commit"
-    git remote add origin git@gitlab.com:user-name/repository-name.git
-    git push -u origin master
+So go to GitHub or GitLab and create a repository.  In both GitHub and GitLab, when you are logged in, there is a little '+' next to your username in the top right corner which lets you add a new repository (GitLab calls them "projects"). Once your repository/project is created, you can clone it to a repository living on your computer using the clone URL at the bottom of the right sidebar in GitHub or at the top of the projct page in GitLab.  There are HTTPS and SSH versions of those URLs.  HTTPS always works, but you will have to give your GitHub/GitLab user ID and password whenever you push or pull.  SSH can be set up to avoid that, so it's preferable, but it is a bit of a hassle to set up on Windows.  
+
+You can of course also use Git to clone repositories not created by you.  For instance, the [Open Logic Text](https://github.com/OpenLogicProject/OpenLogic) is a logic textbook project that uses Git, and you could use the clone URL on its GitHub page to download a copy using Git.  This very document can be cloned from [GitHub](https://github.com/rzach/git4phi) as well.  In the same way, you can clone a repository set up by a collaborator for a document you are lanning to work on together.  However, only in the latter case will you have permissions to change the repository on the server.  Instead of cloning, e.g., the Open Logic repository directly, you can first ask GitHub to make a copy of it which you own.  This is called a 'fork'.  A fork of a repository is a snapshot of the original, which you have complete control over.  In particular, you can clone it to your own computer, and push any changes you make back to GitHub or GitLab. Both GitHub and GitLab display a "fork" button in the top right corner of the repository page which allows you to do this. 
+
+Once you have a clone URL, you can create your local version of the repository with the command 
+
+    git clone URL
+
+To track your own work, you'll start with a new, empty repository and clone it.  Suppose you are 'user' on GtHub and have started a repository 'project'.  You make a local version of this repository using
+
+    git clone https://github.com/user/project.git
+
+and this repository will live in the directory/folder 'project' on your local drive.  You can add a new file to that folder, but to have it tracked you also have to add it explicitly to the Git index:
+
+    git add new-file.tex
+
+Now Git knows that new-file.tex should be tracked. To create a new revision of your 'project' repository which records all the changes to your tracked files, say 
+    
+    git commit -a
+
+The switch "-a" is for "all": Git will 'stage' all changes for all tracked files in the repository.
+
+Then to sync your local hanges to GitHub/GitLab, you say
+
+    git push
+
