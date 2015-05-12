@@ -52,3 +52,18 @@ Then to sync your local hanges to GitHub/GitLab, you say
 
     git push
 
+## Collaborative Writing with Git
+
+When you have set up a repository for your writing project (say, containing a LaTeX document plus a BibTeX file for references), you can edit the files, commit your changes to generate a new revision, and periodically push your revisions to the remote repository on GitHub or GitLab.  If you are working on the project with someone else, you can give them access to the repository as well. If they have _push access_ they can send their own revisions to the shared repository.
+
+Git keeps track of the state of your own local repository and the remote on GitHub/GitLab.  The command
+
+    git status
+
+will prompt Git to tell you the status of your repository: which branch you are on (typically, this is the _master_ branch, but more about branches later), whether your local version of the repository is up to date with the remote or not, which files have chnages that are waiting to be committed, and which files are untracked.  If you have commits that you have not pushed yet, Git will report something like "Your branch is ahead of 'origin/master' by 1 commit."  The remote repository is usually called _origin_, and the remote branch that corresponds to your local _master_ branch is then called _origin/master_.  It might happen that your branch is _behind_ the remote: if your collaborator has pushed changes to the shared remote, there will be commits on the remote that you don't yet have in your local repository.  Before you can push your changes, you will have to incorporate your collaborators' changes into your own local version of your paper.
+
+This may also happen if you have a document shared on a Dropbox folder.  If your collaborator has edited the file while you were away, you will see the changes automatically.  But if you've had your file open in an editor while your collaborator has made changes -- perhaps even with your laptop asleep! -- Dropbox will realize that there may be a conflict between your version of the document and your collaborator's.  But it won't know what to do.  Rather than overwrite one of your changes, Dropbox will make a copy of the file you're working on simultaneously, and leave you to figure out which version is more up-to-date and how to reconcile the two copies into one.
+
+If your document is under Git control, you will have to remember to pull changes from the shared repository before you see what your co-author has done. By the same toke, you and they have to remember to push new commits to the repository, or there won't be any changes to pull.  In the crucial case where you have both made changes at the same time, however, Git will handle the discrepancies much more gracefully.
+
+In the best case scenario, you and your coauthor have edited the same file, but you haven't edited the same _part_ of the file: say, they added a footnote to the introduction, you have cleaned up a passage in a middle section.  If they have committed their changes and pushed to the shared remote, Git won't let you push your changes.
