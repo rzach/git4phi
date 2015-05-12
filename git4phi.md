@@ -52,3 +52,4 @@ Then to sync your local hanges to GitHub/GitLab, you say
 
     git push
 
+## Branches
