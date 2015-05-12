@@ -66,5 +66,29 @@ This may also happen if you have a document shared on a Dropbox folder.  If your
 
 If your document is under Git control, you will have to remember to pull changes from the shared repository before you see what your co-author has done. By the same toke, you and they have to remember to push new commits to the repository, or there won't be any changes to pull.  In the crucial case where you have both made changes at the same time, however, Git will handle the discrepancies much more gracefully.
 
-In the best case scenario, you and your coauthor have edited the same file, but you haven't edited the same _part_ of the file: say, they added a footnote to the introduction, you have cleaned up a passage in a middle section.  If they have committed their changes and pushed to the shared remote, Git won't let you push your changes.
+In the best case scenario, you and your coauthor have edited the same file, but you haven't edited the same _part_ of the file: say, they added a footnote to the introduction, you have cleaned up a passage in a middle section.  If they have committed their changes and pushed to the shared remote, Git won't let you push your changes. You'll get an error message like
 
+    ! [rejected]        master -> master (fetch first)
+
+If your changes do not conflict (were not made to the same line of text), Git can fix this automatically.  Just say
+
+    git pull
+
+Git will then download the changes from the remote and automatically merge them with your version of the repository, creating a new revision which includes both your changes and the older changes by your co-author.  Your repository is now ahead of the remote by one commit (the merge), and you can push the combined changes to the remote.
+
+If you did happen to bth make changes that cannot be merged automatically, Git will alert you to this fact:
+
+    CONFLICT (content): Merge conflict in <filenames>
+    Automatic merge failed; fix conflicts and then commit the result.
+
+The file with the editing conflict will now contain the conflicting lines, indicating your and their changes:
+
+    <<<<<<< HEAD
+    what you wrote
+    =======
+    what your co-author wrote
+    >>>>>>> hash code of your co-author's commit
+
+in the relevant place in the document.  Fix up just that part of the document, and say `git commit -a`.  Your local repository now contains a conflict-free version of both your changes, which is ahead of the shared repository by one commit, and Git will again let you push to the remote.  When your co-author returns to work and says `git pull`, they will have the merged, integrated version of the document.
+
+Note that your intervention is ony required if both you and your co-author have made changes to the very same line of text, otherwise Git will merge the changes automatically.  This includes the case where one of you adds a paragraph and the other one cuts text somewhere else in the file: after `git pull` the file wll have the new paragraph but the text you deleted will still be gone.
