@@ -22,7 +22,7 @@ To save the revisions in your Git repository over the internet, your Git reposit
 
 ## How do I use Git?
 
-In order to use Git on your computer, you have to install the Git software.  The bare-bones "command line" Git client is available for all operating systems, but there are a fair number of graphical interfaces available as well. The best place to start is on the [Git download page](http://git-scm.com/downloads). For Windows, there is [TortoiseGit](https://code.google.com/p/tortoisegit/), which will make all the Git commands available via the Windows Explorer right-click menu.  If your repositories are or will be hosted on GtHub, you can use GitHub's own graphical tools for Windows and Mac.
+In order to use Git on your computer, you have to install the Git software.  The bare-bones "command line" Git client is available for all operating systems, but there are a fair number of graphical interfaces available as well. The best place to start is on the [Git download page](http://git-scm.com/downloads). Git comes with two graphical tools, `git gui` and `gitk`.  For Windows, there is [TortoiseGit](https://code.google.com/p/tortoisegit/), which will make all the Git commands available via the Windows Explorer right-click menu.  If your repositories are or will be hosted on GitHub, you can use GitHub's own graphical tools for Windows and Mac.
 
 Once you have Git and possibly a graphical Git tool installed, you have to set up a repository.  There are two ways to do this.  The first is using the `git init` command: in the folder/directory you want to track using Git, just say `git init`.  Most of the time, however, you want your repository to have a matching remote version on a server.  Then it will be a lot easier to first create the repository on the server and create a local copy of that repository, which will then be linked to the remote.  Creating such a local version of an existing repository is called 'cloning.'
 
@@ -38,7 +38,7 @@ To track your own work, you'll start with a new, empty repository and clone it. 
 
     git clone https://github.com/user/project.git
 
-and this repository will live in the directory/folder 'project' on your local drive.  You can add a new file to that folder, but to have it tracked you also have to add it explicitly to the Git index:
+and this repository will live in the directory/folder 'project' on your local drive. You can add a new file to that folder, but to have it tracked you also have to add it explicitly to the Git index:
 
     git add new-file.tex
 
