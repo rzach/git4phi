@@ -71,7 +71,7 @@ will prompt Git to display the status of your repository: which branch you are o
 
 If your document is under Git control, you have to pull changes from the shared repository before you see what your co-author has done. By the same token, you and they have to remember to push new commits to the repository, or there won't be any changes to pull.  In the crucial case where you have both made changes at the same time, however, Git will handle the discrepancies gracefully.
 
-In the best case scenario, you and your co-author have edited the same file, but you haven't edited the same _part_ of the file: say, they added a footnote to the introduction, you have cleaned up a passage in a middle section.  If they have committed their changes and pushed to the shared remote, Git won't let you push your changes. You'll get an error message like
+In the best case scenario, you and your co-author have edited the same file, but you haven't edited the same _part_ of the file: say, they added a sentence to the introduction, you have cleaned up a passage in a middle section.  If they have committed their changes and pushed to the shared remote, Git won't let you push your changes. You'll get an error message like
 
     ! [rejected]        master -> master (fetch first)
 
@@ -88,12 +88,62 @@ If you did happen to both make changes that cannot be merged automatically, Git 
 
 Instead of letting you fend for yourself in figuring out what has changed and where, Git will tell you exactly what you have to fix.  The files with editing conflicts will now contain the conflicting lines, indicating your and their changes, e.g.:
 
+    ....preceding text...
     <<<<<<< HEAD
     what you wrote
     =======
     what your co-author wrote
     >>>>>>> hash code of your co-author's commit
+    ...following text
 
-in the relevant place in the document.  Fix up just that part of the document. Then say `git commit -a`.  Your local repository now contains a conflict-free version of both your changes, which is ahead of the shared repository by one commit, and Git will again let you push to the remote.  When your co-author returns to work and says `git pull`, they will have the merged, clean version of the document.
+in the relevant place in the document.  Fix up just that part of the document, e.g., delete the lines with `<<<`, `===`, and `>>>` and have the file read:
 
-Note that your intervention is only required if both you and your co-author have made changes to the very same line of text, otherwise Git will merge the changes automatically.  This includes the case where one of you adds a paragraph and the other one cuts text somewhere else in the file: after `git pull` the file will contain the new paragraph and the deleted text will be gone.
+    ....preceding text...
+    what you wrote, but also what your co-author wrote
+    ...following text
+
+Save the file, then say `git commit -a`.  Your local repository now contains a conflict-free version of both your changes, which is ahead of the shared repository by one commit, and Git will again let you push to the remote.  When your co-author returns to work and says `git pull`, they will have the merged, clean version of the document.
+
+Note that your intervention is only required if both you and your co-author have made changes to the very same line of text, otherwise Git will merge the changes automatically.  This includes the case where one of you adds a paragraph and the other one cuts text somewhere else in the file: after `git pull` the file will contain the new paragraph and the deleted text will be gone. For instance, suppose your file looks like this:
+
+    Introduction
+    
+    Middle
+    
+    Conclusion
+
+Author A adds a sentence:
+
+    Introduction
+    
+    A remark by author A
+    
+    Middle
+    
+    Conclusion
+
+Auhor A commits this change and pushes to the repository.
+
+Author B (you) adds a sentence to the conclusion:
+
+    Introduction
+    
+    Middle
+    
+    Conclusion
+
+    A concluding remark by author B
+
+You commit your change, but `git push` results in a warning, asking you to "fetch first." So you say, `git pull`. Now your file looks like this:
+
+    Introduction
+    
+    A remark by author A
+    
+    Middle
+    
+    Conclusion
+
+    A concluding remark by author B
+
+In other words, your changes to the same file were merged automatically. If you now say `git push` the merged file will also be available to author A on the remote. No intervention in the file itself is needed in this case.
