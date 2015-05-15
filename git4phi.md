@@ -147,3 +147,22 @@ You commit your change, but `git push` results in a warning, asking you to "fetc
     A concluding remark by author B
 
 In other words, your changes to the same file were merged automatically. If you now say `git push` the merged file will also be available to author A on the remote. No intervention in the file itself is needed in this case.
+
+## Forks and Pull Requests
+
+If you have push access to a repository, you can sync your local clone with the remte on GitHub or GitLab directly.  But many projects do allow push access only to a select group of people to make sure noone breaks anything.  There are some larger collaborative writing projects like this, e.g., the [HoTT Book](https://github.com/HoTT/book) and the [Open Logic Text](https://github.com/OpenLogicProject/OpenLogic).  You may wish to set up a project in such a way, to allow others to use, improve, and contribute to your project but while retaining control.  Git is set up for this kind of scenario, it is called the "fork and pull" model of collaboration.  In the fork and pull model, your collaorators each work on their own fork of the repository.  Forking your repository is easy: both GitHub and GitLab display a fork button on the repository page. Your contributor clicks on that button, and a complete copy of the repository appears in their own GitHub/GitLab user space.  If your repository lives at `github.com/reader/project` then their fork will live at `github.com/collaborator/project`.  Instead of cloning the `author/project` repository, and pushing to it directly, they clone the `collaborator/project` repository and work on that private copy.
+
+The `collaborator/project` repository is a complete copy, but it is not automatically kept in sync with `reader/project`.  If your collaborator wants to have changes to your repository included also in their forks, they have to do this explicitly.  If you have forked a repository, e.g., you have your own fork `reader/OpenLogic` of the `OpenLogicProject/OpenLogic`, you also have to explicitly merge changes into your fork from the original repository.  You do this on your local clone on your own computer.  Suppose you have cloned the `reader/OpenLogic` repository (your own fork) on your computer's harddrive.  It is already set up with a remote, your fork on GitHub.  Pulling and pushin usually happen between your local clone and the remote fork `reader/OpenLogic`.  To sync changes from the original `OpenLogicProject/OpenLogic` repository, you have to add it as anoter remote:
+
+    git remote add upstream https://github.com/OpenLogicProject/OpenLogic.git
+    
+Here `upstream` is the traditional name given to the original remote repository (vs. `origin` which is the remote repository on your own GitHub account, which happens to be a fork).  Of course, the URL will point to whichever upstream repository you want to track.
+
+Now you can tell Git to pull changes, not from the remote `origin` but from `upstream`, and merge them into your local repository using the command
+
+    git pull upstream master
+
+Now your local clone of `reader/OpenLogic` contains all the changes from the upstream `OpenLogicProject/OpenLogic`.  To update these changes also in your own fork n GitHub, simply say
+
+    git push
+    
