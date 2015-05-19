@@ -162,7 +162,10 @@ Now you can tell Git to pull changes, not from the remote `origin` but from `ups
 
     git pull upstream master
 
-Now your local clone of `reader/OpenLogic` contains all the changes from the upstream `OpenLogicProject/OpenLogic`.  To update these changes also in your own fork n GitHub, simply say
+Your local clone of `reader/OpenLogic` contains all the changes from the upstream `OpenLogicProject/OpenLogic`.  To update these changes also in your own fork n GitHub, simply say
 
     git push
     
+Having a copy of a repository, and keeping it up-to-date with the original, "upstream" version, is only half the fun. The real advantage of being able to edit your own /fork/ -- rather than just your own /copy/ -- is that your additions and corrections can be incorporated back into the source repository.  For instance, you might want to correct a typo, help with some copyediting, or, in a collaborative project, contribute additional material.  The editors of the source repository may want to retain control over who gets to contribute what, and so they don't give push access to anyone. But you can work on your own fork, and make those corrections and attitions there first.
+
+When you are done, you can send a /pull request/ to the owners of the source repository.  GitHub/GitLab remember from which repository your fork was created, and will display if your fork contains chages not in the upstream surce repository.
