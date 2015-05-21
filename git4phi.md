@@ -197,22 +197,30 @@ Let's see how this works in action.  Suppose you want to prepare a version of th
 
 To make a new branch, say 
 
-   git branch victorianists
+    git branch victorianists
 
 To switch to work on the branch, say
 
-   git checkout victorianists
+    git checkout victorianists
 
-Now any change you make and commit will be committed to the `victorianists` branch, instead of the master branch.  If you say `git push`, your remote will be updated with a matching branch.  You can make the changes to the text required on the branch, e.g., change references to LaTeX to TEI-XML.
+Now any change you make and commit will be committed to the `victorianists` branch, instead of the master branch.  If you say `git push`, Git will first complain that your new branch has no matching branch on GitHub. 
+
+    fatal: The current branch victorianists has no upstream branch.
+    To push the current branch and set the remote as upstream, use
+
+        git push --set-upstream origin victorianists
+
+After you do that, your remote will be updated with a matching branch, and you can push the branch to the GitHub repository.  You can make the changes to the text required on the branch, e.g., change references to LaTeX to TEI-XML.  You can look at [what that would like here](https://github.com/rzach/git4phi/tree/victorianists).
 
 To add more material to the text, or to fix typos, you probably want to switch back to the `master` branch.
 
-   git checkout master
+    git checkout master
 
 Now the file will be reset to the version on the `master` branch. Any changes you commit from here on will be recorded in the `master` version, but not in the `victorianists` version.  You can merge those changes into the `victorianists` branch using
 
-    git merge master victorianists
+    git checkout victorianists
+    git merge master
 
 so the Victorianists also get the added content and corrections.
 
-Branches are useful sometimes, it's good to understand how they work because that's how many of Git's features work "behind the scenes", but they can also be confusing. If you do work with branches, you have to be extra careful to make sure you commit your changes to the right branches, and that you merge changes from the `master` branch regularly to avoid having to do it manually when the branches get too far out of sync.
+Branches are useful sometimes, it's good to understand how they work because that's how many of Git's features work "behind the scenes", but they can also be confusing. If you do work with branches, you have to be extra careful to make sure you commit your changes to the right branches, and that you merge changes from the `master` branch regularly to avoid having to do it manually when the branches get too far out of sync.  It's now also very important to `git pull` often, othrwise you will have to merge changes from the remote not just into `master` but also into your feature branches.
