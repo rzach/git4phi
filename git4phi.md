@@ -171,4 +171,37 @@ Having a copy of a repository, and keeping it up-to-date with the original, "ups
 When you are done, you can send a /pull request/ to the owners of the source repository.  GitHub/GitLab remember from which repository your fork was created, and will display if your fork contains changes not in the upstream source repository.  When your fork is "ahead" of the original repository, you can send a /pull request/: alert the owners of the source repository that your fork contains changes which they might want to pull, i.e., merge into their repository.  
 
 The pull request shows up as an "issue" in the GitHub view of the source repository.  The owners of the original repository can see who sent the pull request, read the description, look at the line-by-line changes in all affected files. They can respond to the pull request with a comment, e.g., asking for clarification or explaining why they can't merge the proposed changes.  You can also add comments to individual lines in the commits making up the pull request.  If the changes in the pull request are simple changes or additions that do not conflict with any changes that have been made to the source repository, GitHub will show a button that allows the repository owner to merge the changes automatically.  Your contribution can be easily incorporated into the repository in this way.
-file:///home/zach/Pictures/changes.png
+
+## Branches
+
+Programmers are fond of using "branches" in their code.  A code branch is a version of the entire project that shares it change history, but includes some changes the main branch (usually called "master") does not (yet) contain.  This is useful, for instance, when you are adding new functions to your program.  The new functions may be implemented in a separate file that is added to the project, but it may also require changes in other, existing parts of the project.  Until the new function is developed and tested, you dont want to isolate these changes in a development area. After all, the other parts of the program are still used, and perhaps even continue to be developed.  Adding possibly buggy code in the process of developing the new function shouldn't interfere with development of the old, tried-and-true parts of the project.  So to do that, a software project will add a "feature" branch where all the new development takes place, and when it's complete the changes will be merged back into the "master" branch.
+
+This is not a situation that a run-of-the-mill collaborative writing project will encounter. But it is unseful to understand what branches are, because behind the scenes, Git's functionality for dealing with brnaches is what's behind most of the features discussed so far.  For instance, pulling changes from a remote repository in fact uses this functionality.  If your repository is linked to a remote, the content of the remote is actually a branch of your repository, `origin/master`.  The `git fetch` command updates the content of this branch to the content of the remote. The `git merge` command allows you to merge a branch into another, e.g., `git merge origin/master master` would merge the content of the `origin/master` branch into the `master` branch.  An that's actualy what `git pull` does: first `git fetch` to update the `origin/master` branch, then `git merge origin/master master` to merge the remote changes into your local `master` branch.  Similarly, merging a pull request is a combination of a `git fetch` the contents of your contributor's repository into a, say, `gitonaut/master` branch, and then merging that branch into your own `master` branch.  GitHub and GitLab do this behind the scenes when you click on the "merge pull request" button, you can also do it by hand.  A situation where you might want to do that is if you want to adjust the changes made by your contributor before merging into the `master` branch.
+
+There are other situations when branches might be helpful.  One is analogous to the "feature" branch in a software project. Suppose you are working on a collaborative book project (such as the Open Logic Text), and you want to add a chapter on a new topic.  You will star writing the chapter in a separate file, of course. But there are perhaps other areas of the book that will be affected, e.g., the table of contents, cross-references, the bibliograph, the index.  While your new chapter is not yet read for prime time, you may still want to exclude any mention of the new material. Someone printing the text shouldn't have to print your half-baked ideas and placeholder bibliography entries.  At the same time, /you/ do want to be able to see what the book will look like with all the new cross-references etc.  The solution is to work on your new chapter in a branch. When your new chapter is ready, you can then merge your branch into `master`.  Before it is ready, any changes to the master branch can also be merged into your "feature" branch, so the copy of the project in which you're working on the new chapter will also include all the changes you or other people make to other parts of the text.
+
+Another possible application of branches is when you want to develop a slightly different version of your project. For instance, say you are co-authoring a paper using git, and you're ready to send it to a conference.  You can start a new branch, and anonymize the paper on that branch.  That's the version you submit. You get some feedback at the conference which you incorporate, and fix some typos or add a reference or two to the master branch.  Now you want to send it to a journal.  You've made changes to the original paper, but it does take some effort to anonymize it.  Rather than anonymize it again, you can just switch to the anonymized branch, marge the changes from the master branch, and have an updated but still anonymized version of the paper.  
+
+Let's see how this works in action.  Suppose you want to prepare a version of this paper for a slightly different audience, e.g., victorianists instead of philosophers.  We are going to keep the victorianist version on a branch, `victorianists`.
+
+To make a new branch, say 
+
+   git branch victorianists
+
+To switch to work on the branch, say
+
+   git checkout victorianists
+
+Now any change you make and commit will be committed to the `victorianists` branch, instead of the master branch.  If you say `git push`, your remote will be updated with a matching branch.  You can make the changes to the text required on the branch, e.g., change references to LaTeX to TEI-XML.
+
+To add more material to the text, or to fix typos, you probably want to switch back to the `master` branch.
+
+   git checkout master
+
+Now the file will be reset to the version on the `master` branch. Any changes you commit from here on will be recorded in the `master` version, but not in the `victorianists` version.  You can merge those changes into the `victorianists` branche using
+
+    git merge master victorianists
+
+so the Victorianists also get the added content and corrections.
+
+Branches are useful sometimes, it's good to understand how they work because that's how many of Git's features work "behind the scenes", but they can also be confusing. If you do work with branches, you have to be extra careful to make sure you commit your changes to the right branches, and that you merge changes from the `master` branch regularly to avoid having to do it manually when the branches get too far out of sync.
