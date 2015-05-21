@@ -162,15 +162,26 @@ Now you can tell Git to pull changes, not from the remote `origin` but from `ups
 
     git pull upstream master
 
-Your local clone of `reader/OpenLogic` contains all the changes from the upstream `OpenLogicProject/OpenLogic`.  To update these changes also in your own fork n GitHub, simply say
+Your local clone of `reader/OpenLogic` contains all the changes from the upstream `OpenLogicProject/OpenLogic`.  To update these changes also in your own fork on GitHub, simply say
 
     git push
     
 Having a copy of a repository, and keeping it up-to-date with the original, "upstream" version, is only half the fun. The real advantage of being able to edit your own /fork/ -- rather than just your own /copy/ -- is that your additions and corrections can be incorporated back into the source repository.  For instance, you might want to correct a typo, help with some copy-editing, or, in a collaborative project, contribute additional material.  The editors of the source repository may want to retain control over who gets to contribute what, and so they don't give push access to anyone. But you can work on your own fork, and make those corrections and additions there first.
 
-When you are done, you can send a /pull request/ to the owners of the source repository.  GitHub/GitLab remember from which repository your fork was created, and will display if your fork contains changes not in the upstream source repository.  When your fork is "ahead" of the original repository, you can send a /pull request/: alert the owners of the source repository that your fork contains changes which they might want to pull, i.e., merge into their repository.  
+When you are done, you can send a /pull request/ to the owners of the source repository.  GitHub/GitLab remember from which repository your fork was created, and will display if your fork contains changes not in the upstream source repository.  Here's what user `gitonaut` sees after they've added some material to their fork of this file:
 
-The pull request shows up as an "issue" in the GitHub view of the source repository.  The owners of the original repository can see who sent the pull request, read the description, look at the line-by-line changes in all affected files. They can respond to the pull request with a comment, e.g., asking for clarification or explaining why they can't merge the proposed changes.  You can also add comments to individual lines in the commits making up the pull request.  If the changes in the pull request are simple changes or additions that do not conflict with any changes that have been made to the source repository, GitHub will show a button that allows the repository owner to merge the changes automatically.  Your contribution can be easily incorporated into the repository in this way.
+![GitHub fork view](https://raw.githubusercontent.com/rzach/git4phi/master/fork-ahead.png)
+
+When your fork is "ahead" of the original repository, you can send a /pull request/: alert the owners of the source repository that your fork contains changes which they might want to pull, i.e., merge into their repository.  
+
+![Creating pull request](https://raw.githubusercontent.com/rzach/git4phi/master/create-pull-req.png)
+
+The pull request shows up as an "issue" in the GitHub view of the source repository.  The owners of the original repository can see who sent the pull request, read the description, look at the line-by-line changes in all affected files. For instance, the [pull request](https://github.com/rzach/git4phi/pull/1) adding a paragraph above in this file by `gitonaut` looked like this:
+
+![Viewing changes in pull request](https://raw.githubusercontent.com/rzach/git4phi/master/changes.png)
+
+The repository owners can respond to the pull request with a comment, e.g., asking for clarification or explaining why they can't merge the proposed changes.  It is also possible to add comments to individual lines in the commits making up the pull request.  If the changes in the pull request are simple and do not conflict with any changes that have meanwhile been made to the source repository, GitHub will show a button that allows the repository owner to merge the changes automatically.  Your contribution can be easily incorporated into the repository in this way.  The history of the files you changed will contain a record of the change merged via the pull request, and you will be listed among the contributors to the files you changed. For instance, [this file](https://github.com/rzach/git4phi/blob/master/git4phi.md#blob_contributors_box) now lists `gitonaut` as a contributor, and the "blame" view of the file [shows the contributions](https://github.com/rzach/git4phi/blame/master/git4phi.md#L169) made by `gitonaut`.
+
 
 ## Branches
 
