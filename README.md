@@ -3,7 +3,7 @@ git4phi
 
 Git for Philosophers
 
-A basic introduction to Git the revision control system for non-programmers.
+A basic introduction to Git the revision control system for non-programmers, specifically for using Git as a way to collaborate on document writing.
 
 The guide is written in Markdown, the file is git4phi.md, and [can be read here](https://github.com/rzach/git4phi/blob/master/git4phi.md).
 
