@@ -79,7 +79,7 @@ If your changes do not conflict (were not made to the same line of text), Git ca
 
     git pull
 
-Git will then download ("fetch") the changes from the remote and automatically merge them with your version of the repository, creating a new revision which includes both your changes and the older changes by your co-author.  Your repository is now ahead of the remote by one commit (the act of merging your co-authors changes with your own created a new revision), and you can push the combined changes to the remote.
+Git will then download ("fetch") the changes from the remote and automatically merge them with your version of the repository, creating a new revision which includes both your changes and the older changes by your co-author.  Your repository is now ahead of the remote by one commit (the act of merging your co-author's changes with your own created a new revision), and you can push the combined changes to the remote.
 
 If you did happen to both make changes that cannot be merged automatically, Git will alert you to this fact:
 
@@ -223,4 +223,4 @@ Now the file will be reset to the version on the "master" branch. Any changes yo
 
 so the Victorianists also get the added content and corrections.
 
-Branches are useful sometimes, it's good to understand how they work because that's how many of Git's features work "behind the scenes", but they can also be confusing. If you do work with branches, you have to be extra careful to make sure you commit your changes to the right branches, and that you merge changes from the "master" branch regularly to avoid having to do it manually when the branches get too far out of sync.  It's now also very important to `git pull` often, othrwise you will have to merge changes from the remote not just into "master" but also into your feature branches.
+Branches are useful sometimes, it's good to understand how they work because that's how many of Git's features work "behind the scenes", but they can also be confusing. If you do work with branches, you have to be extra careful to make sure you commit your changes to the right branches, and that you merge changes from the "master" branch regularly to avoid having to do it manually when the branches get too far out of sync.  It's now also very important to `git pull` often, otherwise you will have to merge changes from the remote not just into "master" but also into your feature branches.
