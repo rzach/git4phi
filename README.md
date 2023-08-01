@@ -14,7 +14,9 @@ You should feel free to copy & use this as long as you abide by the [CC-BY licen
 The default branch has been renamed to `main`. If you have cloned this
 repository before this change, you will have to do this in your local
 repository:
-```git branch -m master main
+```
+git branch -m master main
 git fetch origin
 git branch -u origin/main main
-git remote set-head origin -a```
+git remote set-head origin -a
+```
