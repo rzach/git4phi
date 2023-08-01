@@ -10,3 +10,11 @@ The guide is written in Markdown, the file is git4phi.md, and [can be read here]
 It is written by [Richard Zach](http://richardzach.org)
 
 You should feel free to copy & use this as long as you abide by the [CC-BY license](LICENSE.md).
+
+The default branch has been renamed to `main`. If you have cloned this
+repository before this change, you will have to do this in your local
+repository:
+```git branch -m master main
+git fetch origin
+git branch -u origin/main main
+git remote set-head origin -a```
